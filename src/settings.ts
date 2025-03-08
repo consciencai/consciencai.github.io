@@ -1,18 +1,20 @@
 export const profile = {
-	fullName: 'Your Name',
+	fullName: 'Aïda Elamrani',
+	blogName: 'ConsciencAI',
 	title: '',
 	institute: '',
-	author_name: '', // Author name to be highlighted in the papers section
+	author_name: 'Elamrani', // Author name to be highlighted in the papers section
 	research_areas: [
-		// { title: 'Physics', description: 'Brief description of the research interest', field: 'physics' },
+		{ title: 'Artificial Consciousness', description: 'Brief description of the research interest', field: 'physics' },
+		{ title: 'AI Ethics', description: 'Brief description of the research interest', field: 'physics' },
 	],
 }
 
 // Set equal to an empty string to hide the icon that you don't want to display
 export const social = {
 	email: '',
-	linkedin: '',
-	x: 'https://www.x.com/',
+	linkedin: 'https://www.linkedin.com/in/a%C3%AFda-elamrani-a0b943237/',
+	x: 'https://www.x.com/AidaElam',
 	github: '',
 	gitlab: '',
 	scholar: '',
@@ -32,7 +34,7 @@ export const template = {
 }
 
 export const seo = {
-	default_title: 'Astro Academia',
-	default_description: 'Astro Academia is a template for academic websites.',
+	default_title: 'ConsciencAI',
+	default_description: 'ConsciencAI is a blog about computers, AI, consciousness, and the infosphere.',
 	default_image: '/images/astro-academia.png',
 }

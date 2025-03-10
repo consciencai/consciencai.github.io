@@ -23,7 +23,7 @@ export const social = {
 }
 
 export const template = {
-	website_url: 'https://consciencai.github.io/', // Astro needs to know your site’s deployed URL to generate a sitemap. It must start with http:// or https://
+	website_url: 'https://conscienc.ai/', // Astro needs to know your site’s deployed URL to generate a sitemap. It must start with http:// or https://
 	menu_left: false,
 	transitions: true,
 	lightTheme: 'light', // Select one of the Daisy UI Themes or create your own
@@ -36,5 +36,5 @@ export const template = {
 export const seo = {
 	default_title: 'ConsciencAI',
 	default_description: 'ConsciencAI is a blog about computers, AI, consciousness, and the infosphere.',
-	default_image: '/images/astro-academia.png',
+	default_image: '/images/unicorn.jpg',
 }

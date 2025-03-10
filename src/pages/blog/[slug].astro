@@ -19,6 +19,12 @@ export async function getStaticPaths(): Promise<Array<{ params: { slug: string }
 const {post} = Astro.props;
 const { title, date, tags} = post.data; 
 const { Content } = await render(post);
+
+// SHARING BUTTONS
+// Import the component at the top
+import ShareButtons from '@/components/ShareButtons.astro';
+// Get current post URL
+const postUrl = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <Layout title={title}>
@@ -66,6 +72,7 @@ const { Content } = await render(post);
 						)
 					}
 				</div>
+				<ShareButtons url={postUrl} title={title} />
 			</div>
 
 			<!-- Post content -->

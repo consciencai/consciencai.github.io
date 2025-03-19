@@ -22,9 +22,15 @@ const {fullName, blogName} = profile
 					alt={`Profile picture of ${fullName}`}
 				/>
 				<h1 class="text-lg font-black mt-8 hidden lg:block">{blogName} </span></h1>
-				<p class="text-xs"><i>¤~ {fullName}'s blog ~¤</i></p>
+				<p class="text-xs"><i>
+					<span 
+					id="typewriter" 
+					class="whitespace-nowrap"
+					data-original-text={`¤~ ${fullName}'s blog ~¤`}> </span>
+    				<span id="cursor" class="opacity-0">_</span>
+				</i></p>
 			</div>
-			<div class='mx-4 mt-16'>
+			<div class='mx-4 mt-4'>
 				<ul class='space-y-4 menu grow shrink menu-md overflow-y-auto'>
 					<li>
                         <a href=`${template.base}/` class='text-lg'>Home</a>
@@ -55,3 +61,97 @@ const {fullName, blogName} = profile
 		</div>
 	</div>
 </aside>
+<style>
+	/* Blinking cursor animation */
+	@keyframes blink {
+	  0%, 100% { opacity: 1; }
+	  50% { opacity: 0; }
+	}
+	#cursor {
+	  animation: blink 1s step-end infinite;
+	  margin-left: 2px;
+	}
+	
+	/* Smooth transitions */
+	#typewriter {
+	  transition: opacity 0.2s;
+	}
+  </style>
+  
+  <script is:inline>
+	{
+	  let timeout;
+	  let originalText;
+	  let isAnimating = true;
+	  const controller = new AbortController();
+	
+	  function initAnimation() {
+		const element = document.getElementById('typewriter');
+		const cursor = document.getElementById('cursor');
+		
+		// Get text from data attribute
+		originalText = element.dataset.originalText;
+		
+		// Initial setup
+		element.textContent = '';
+		cursor.classList.remove('opacity-0');
+	
+		let index = 0;
+		let isDeleting = false;
+		const speed = 100;
+		const pauseDuration = 2000;
+	
+		function animate() {
+		  if (!isAnimating) return;
+	
+		  const currentText = element.textContent;
+		  
+		  if (!isDeleting && currentText === originalText) {
+			isDeleting = true;
+			timeout = setTimeout(animate, pauseDuration);
+		  } else if (isDeleting && currentText === '') {
+			isDeleting = false;
+			index = 0;
+			timeout = setTimeout(animate, speed);
+		  } else {
+			if (isDeleting) {
+			  element.textContent = originalText.substring(0, currentText.length - 1);
+			  index--;
+			} else {
+			  element.textContent = originalText.substring(0, index + 1);
+			  index++;
+			}
+			timeout = setTimeout(animate, isDeleting ? speed/2 : speed);
+		  }
+		}
+	
+		// Start animation sequence
+		timeout = setTimeout(() => {
+		  cursor.classList.add('animate-blink');
+		  animate();
+		}, 500);
+	  }
+	
+	  function cleanup() {
+		isAnimating = false;
+		clearTimeout(timeout);
+		const element = document.getElementById('typewriter');
+		const cursor = document.getElementById('cursor');
+		
+		if (element && cursor) {
+		  // Restore from data attribute
+		  element.textContent = element.dataset.originalText;
+		  cursor.classList.remove('animate-blink');
+		  cursor.classList.add('opacity-0');
+		}
+	  }
+	
+	  // Event listeners
+	  document.addEventListener('DOMContentLoaded', initAnimation, { signal: controller.signal });
+	  document.addEventListener('astro:before-load', cleanup, { signal: controller.signal });
+	  document.addEventListener('astro:page-load', () => {
+		isAnimating = true;
+		initAnimation();
+	  }, { signal: controller.signal });
+	}
+	</script>

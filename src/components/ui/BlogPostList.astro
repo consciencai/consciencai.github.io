@@ -13,7 +13,8 @@ const posts = blogEntries
 		title: post.data.title,
 		date: post.data.date,
 		badge: post.data.tags[0],
-		excerpt: post.data.excerpt,
+		description: post.data.description,
+		draft: post.data.draft,
 		slug: `${template.base}/blog/${post.id}`,
 	}))
 	.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -26,7 +27,7 @@ const posts = blogEntries
 					<div class='p-6 rounded-lg text-base-content bg-base-200'>
 						<h3 class='text-xl font-semibold mb-2'>{item.title}</h3>
 						<p >
-							{item.excerpt} 
+							{item.description} 
 						</p>
 						<p >
 							<i>Posted on {item.date}</i>
@@ -58,7 +59,7 @@ const posts = blogEntries
 						day: 'numeric',
 					})}
 				</time>
-				<p class='mt-4'>{post.excerpt}</p>
+				<p class='mt-4'>{post.description}</p>
 				<div class='card-actions justify-end'>
 					<a
 				href={post.slug}

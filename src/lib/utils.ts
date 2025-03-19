@@ -9,7 +9,7 @@ export function highlightAuthor(authors: string): string{
 	return authors
 }
 
-export function trimExcerpt(excerpt: string): string {
-	const excerptLength = template.excerptLength
-	return excerpt.length > excerptLength ? `${excerpt.substring(0, excerptLength)}...` : excerpt
+export function trimDescription(description: string): string {
+	const descriptionLength = template.descriptionLength
+	return description.length > descriptionLength ? `${description.substring(0, descriptionLength)}...` : description
 }

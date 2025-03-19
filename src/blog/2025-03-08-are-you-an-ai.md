@@ -3,8 +3,9 @@
 title: "Are You an AI Without Knowing It?"
 date: "2025-03-08"
 tags: ["pop"]
-excerpt: "When Blade Runner Meets Reality+"
+description: "When Blade Runner Meets Reality+"
 illustration: '../assets/unicorn.jpg'
+draft: false
 
 ---
 

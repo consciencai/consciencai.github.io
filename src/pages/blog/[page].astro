@@ -1,7 +1,7 @@
 ---
 import Pagination from '@/components/ui/Pagination.astro'
 import Layout from '@/layouts/Layout.astro'
-import { trimExcerpt } from '@/lib/utils'
+import { trimDescription } from '@/lib/utils'
 import { template } from '@/settings'
 import { getCollection } from 'astro:content'
 
@@ -13,7 +13,7 @@ export async function getStaticPaths({ paginate }): Promise<Astro.getStaticPaths
             title: post.data.title,
             date: post.data.date,
             badge: post.data.tags[0],
-            excerpt: trimExcerpt(post.data.excerpt),
+            description: trimDescription(post.data.description),
             slug: `${template.base}/blog/${post.id}`,
         }))
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -50,7 +50,7 @@ const { page } = Astro.props
 									day: 'numeric',
 								})}
 							</time>
-							<p class='mt-4'>{post.excerpt}</p>
+							<p class='mt-4'>{post.description}</p>
 							<div class='card-actions justify-end'>
 								<a
                             href={post.slug}

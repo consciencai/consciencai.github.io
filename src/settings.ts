@@ -28,7 +28,7 @@ export const template = {
 	transitions: true,
 	lightTheme: 'light', // Select one of the Daisy UI Themes or create your own
 	darkTheme: 'dark', // Select one of the Daisy UI Themes or create your own
-	excerptLength: 200,
+	descriptionLength: 200,
 	postPerPage: 5,
     base: '' // Repository name starting with /
 }
@@ -36,5 +36,5 @@ export const template = {
 export const seo = {
 	default_title: 'ConsciencAI',
 	default_description: 'ConsciencAI is a blog about computers, AI, consciousness, and the infosphere.',
-	default_image: '/images/unicorn.jpg',
+	default_image: 'https://conscienc.ai/unicorn.jpg',
 }

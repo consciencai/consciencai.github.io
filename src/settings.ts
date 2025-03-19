@@ -12,7 +12,7 @@ export const profile = {
 
 // Set equal to an empty string to hide the icon that you don't want to display
 export const social = {
-	email: '',
+	email: 'aidaelamrani [at] outlook [dot] fr',
 	linkedin: 'https://www.linkedin.com/in/a%C3%AFda-elamrani-a0b943237/',
 	x: 'https://www.x.com/AidaElam',
 	github: '',
@@ -20,6 +20,8 @@ export const social = {
 	scholar: '',
 	inspire: '',
 	arxiv: '',
+	bluesky: 'https://bsky.app/profile/aidaelamrani.bsky.social',
+	mastodon:'https://mastodon.social/@AidaElamrani'
 }
 
 export const template = {

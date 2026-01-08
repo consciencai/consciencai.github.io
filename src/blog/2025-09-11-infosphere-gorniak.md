@@ -4,7 +4,7 @@ title: "Infosphere, Hyperhistory and the Gorniak Hypothesis"
 date: "2025-11-19"
 tags: ["Global Ethics", "blog"]
 description: "In the information-universe, artificial agents propel us in a new era, with global ethics."
-illustration: '../assets/embodied-mind-xs.jpg'
+image: '/og/cavewoman-digital-flame-s.png'
 draft: false
 
 ---

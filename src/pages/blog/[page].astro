@@ -5,16 +5,17 @@ import { trimDescription } from '@/lib/utils'
 import { template } from '@/settings'
 import { getCollection } from 'astro:content'
 
-export async function getStaticPaths({ paginate }): Promise<Astro.getStaticPathsResult> {
+export async function getStaticPaths({ paginate }: { paginate: any }) {
     const blogEntries = await getCollection("blog");
 
     const posts = blogEntries
         .map(post => ({
             title: post.data.title,
             date: post.data.date,
-            badge: post.data.tags[0],
+            badge: post.data.tags?.[0],
             description: trimDescription(post.data.description),
             slug: `${template.base}/blog/${post.id}`,
+			image: post.data.image,
         }))
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
@@ -22,45 +23,68 @@ export async function getStaticPaths({ paginate }): Promise<Astro.getStaticPaths
         pageSize: template.postPerPage,
     });
 }
-const { page } = Astro.props
+const { page } = Astro.props as { page: { data: Post[] } }
+
+interface Post {
+  slug: string;
+  title: string;
+  image?: string;
+  date: string;
+  description?: string;
+  badge?: string;
+}
+const posts: Post[] = page.data;
 ---
 
 <Layout title='Blog'>
     <div>
-		<h1 class='text-3xl font-bold mb-8'>Blog Posts</h1>
-		<div class='grid gap-8'>
+		<h1 class='text-3xl font-bold mb-8'>Browse all posts</h1>
+		<div class='grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 center-items'>
 			{
-				page.data.map(post => (
-					<article class='card bg-base-200 transition-all'>
-						<div class='card-body'>
-							<div class='flex justify-between items-start'>
-								<h2 class='card-title text-xl'>
-                            <a href={post.slug} class='hover:text-accent'>
-										{post.title}
-									</a>
-								</h2>
-								<div class='badge badge-accent badge-outline p-4'>
-									{post.badge}
-								</div>
-							</div>
-							<time datetime={post.date} class='text-sm text-base-content/71'>
-								{new Date(post.date).toLocaleDateString('en-US', {
-									year: 'numeric',
-									month: 'long',
-									day: 'numeric',
-								})}
-							</time>
-							<p class='mt-4'>{post.description}</p>
-							<div class='card-actions justify-end'>
-								<a
-                            href={post.slug}
-									class='btn btn-sm btn-secondary text-secondary-content'
-								>
-									Read More
-								</a>
-							</div>
+				posts.map((post) => (
+					<article class="card bg-base-200 transition-all overflow-hidden">
+					{post.image && (
+						<figure class="h-44 overflow-hidden rounded-lg">
+						<img
+							src={post.image}
+							alt={`Cover image for “${post.title}”`}
+							loading="lazy"
+							class="h-full w-full object-cover"
+						/>
+						</figure>
+					)}
+
+					<div class="card-body flex flex-col">
+						<div class="flex justify-between items-start text-align-left">
+						<h2 class="card-title text-lg">
+							<a href={post.slug} class="hover:text-accent">
+							{post.title}
+							</a>
+						</h2>
+						
 						</div>
+
+						<time datetime={post.date} class="text-xs text-base-content/60">
+						{new Date(post.date).toLocaleDateString("en-US", {
+							year: "numeric",
+							month: "long",
+							day: "numeric",
+						})}
+						</time>
+
+						<p class="mt-4 text-xs">{post.description}</p>
+
+						<div class="card-actions justify-end mt-auto">
+						<a
+							href={post.slug}
+							class="btn btn-sm btn-secondary text-secondary-content"
+						>
+							Read More
+						</a>
+						</div>
+					</div>
 					</article>
+
 				))
 			}
 		</div>

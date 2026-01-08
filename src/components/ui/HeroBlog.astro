@@ -1,28 +1,129 @@
 ---
 import { Image } from 'astro:assets'
-
 import SocialIcons from './SocialIcons.astro'
-
+import ProfilePictures from '@/assets/profile_pictures.jpg'
 
 const {fullName, blogName, title, institute, profilePicture, profilePicture2, pixelProfilePic} = Astro.props
 ---
 <div class='flex-1'>
-  <h1 class='text-4xl font-bold mb-4'>
-    Welcome to <span class='text-secondary'>{blogName}</span>!  </h1>
-  <!-- <h2 class='text-2xl font-bold mb-2'>
-    I'm <span class='text-secondary'>{fullName}</span>
-  </h2>-->
-
-  <p class='text-xl text-gray-600 mb-4'>A blog about computers, AI, consciousness, and the infosphere.</p>
+  
+	<h1 class='text-4xl font-bold mb-4'>
+		The <span class='text-secondary'>metacomputation</span> blog.
+      </h1>
+	
+	<!--
+   <h2 class='text-2xl font-bold mb-2'>
+    You landed on <span class='text-secondary'>{blogName}</span>
+  </h2>
+	-->
+  <p class="text-lg text-gray-600 mb-4 font-mono">
+					<span 
+					id="typewriter" 
+					class="whitespace-nowrap"
+					data-original-text={`¤~ AI, consciousness & the infosphere ~¤`}> </span>
+    				<span id="cursor" class="opacity-0">_</span>
+				</p>
+  <p class='text-xl text-gray-600 mb-4'></p>
   <p class='text-lg mb-6'>
-     
+    The computer revolution is profoundly reshaping reality. 
+    It also provides powerful analytical tools and frameworks to deepen and strengthen scientific knowledge.
+    In this dawning era, the deepest metaphysical puzzles gravitate around artificial consciousness. 
+	
   </p>
 </div>
-<div class='size-32 lg:block hidden'>
-  <!-- Add your profile image -->
-  <Image
-    src={pixelProfilePic}
-    alt={fullName}
-    class='w-full h-full mask mask-circle size-44'
-  />
-</div>
+
+
+<style>
+	/* Blinking cursor animation */
+	@keyframes blink {
+	  0%, 100% { opacity: 1; }
+	  50% { opacity: 0; }
+	}
+	#cursor {
+	  animation: blink 1s step-end infinite;
+	  margin-left: 2px;
+	}
+	
+	/* Smooth transitions */
+	#typewriter {
+	  transition: opacity 0.2s;
+	}
+  </style>
+  
+  <script is:inline>
+	{
+	  let timeout;
+	  let originalText;
+	  let isAnimating = true;
+	  const controller = new AbortController();
+	
+	  function initAnimation() {
+		const element = document.getElementById('typewriter');
+		const cursor = document.getElementById('cursor');
+		
+		// Get text from data attribute
+		originalText = element.dataset.originalText;
+		
+		// Initial setup
+		element.textContent = originalText;
+		cursor.classList.remove('opacity-0');
+	
+		let index = 0;
+		let isDeleting = false;
+		const speed = 100;
+		const pauseDuration = 2000;
+	
+		function animate() {
+		  if (!isAnimating) return;
+	
+		  const currentText = element.textContent;
+		  
+		  if (!isDeleting && currentText === originalText) {
+			isDeleting = true;
+			timeout = setTimeout(animate, pauseDuration);
+		  } else if (isDeleting && currentText === '') {
+			isDeleting = false;
+			index = 0;
+			timeout = setTimeout(animate, speed);
+		  } else {
+			if (isDeleting) {
+			  element.textContent = originalText.substring(0, currentText.length - 1);
+			  index--;
+			} else {
+			  element.textContent = originalText.substring(0, index + 1);
+			  index++;
+			}
+			timeout = setTimeout(animate, isDeleting ? speed/2 : speed);
+		  }
+		}
+	
+		// Start animation sequence
+		timeout = setTimeout(() => {
+		  cursor.classList.add('animate-blink');
+		  animate();
+		}, 500);
+	  }
+	
+	  function cleanup() {
+		isAnimating = false;
+		clearTimeout(timeout);
+		const element = document.getElementById('typewriter');
+		const cursor = document.getElementById('cursor');
+		
+		if (element && cursor) {
+		  // Restore from data attribute
+		  element.textContent = element.dataset.originalText;
+		  cursor.classList.remove('animate-blink');
+		  cursor.classList.add('opacity-0');
+		}
+	  }
+	
+	  // Event listeners
+	  document.addEventListener('DOMContentLoaded', initAnimation, { signal: controller.signal });
+	  document.addEventListener('astro:before-load', cleanup, { signal: controller.signal });
+	  document.addEventListener('astro:page-load', () => {
+		isAnimating = true;
+		initAnimation();
+	  }, { signal: controller.signal });
+	}
+	</script>

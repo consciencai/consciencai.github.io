@@ -4,7 +4,7 @@ title: "Cryptographic Reality - pt 1"
 date: "2025-05-08"
 tags: ["blog"]
 description: "An inquiry on representation and reality (Part 1): Zeno vs Diogenese, mirages and other paradoxes..."
-illustration: '../assets/zeno-vs-diogenes.png'
+image: '/og/alice-bob-mirage.png'
 draft: false
 
 ---
@@ -49,7 +49,7 @@ Zeno’s thought experiments challenge basic common sense assumptions about the 
 
 ## From Mirages to Strange Loops
 
-![Zeno vs Diogenes](../assets/crypto-reality/alice-bob-mirage.png)
+![Alice and Bob in the Desert](../assets/crypto-reality/alice-bob-mirage.png)
 **| Figure 2** _Alice and Bob in the Desert_
 
 Let us consider the much simpler case of a mirage. Alice and Bob got lost in the desert. They have been trudging under the blazing Sun for hours. Their water supplies are long gone. Alice sighs in despair. Bob is starting to fall behind. Will he stop following? Nothing but sand as far as the eye can see.

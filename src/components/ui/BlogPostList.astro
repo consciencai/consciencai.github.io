@@ -12,7 +12,7 @@ const posts = blogEntries
 	.map(post => ({
 		title: post.data.title,
 		date: post.data.date,
-		badge: post.data.tags[0],
+		badge: post.data.tags?.[0] ?? '',
 		description: post.data.description,
 		draft: post.data.draft,
 		slug: `${template.base}/blog/${post.id}`,
@@ -20,7 +20,7 @@ const posts = blogEntries
 	.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 ---
 
-<h2 class='text-3xl font-bold mb-8'>Latest Updates</h2>
+<h2 class='text-3xl font-bold mb-8'>Latest Post</h2>
 <!-- 		<div class='space-y-6'>
 			{
 				blog.map(item => (
@@ -39,7 +39,7 @@ const posts = blogEntries
 -->
 <div class='grid gap-8'>
 {
-	posts.slice(0,2).map(post => (
+	posts.slice(0,1).map(post => (
 		<article class='card bg-base-200 transition-all'>
 			<div class='card-body'>
 				<div class='flex justify-between items-start'>
@@ -48,9 +48,9 @@ const posts = blogEntries
 							{post.title}
 						</a>
 					</h2>
-					<div class='badge badge-accent badge-outline p-4'>
+					{/* <div class='badge badge-accent badge-outline p-4'>
 						{post.badge}
-					</div>
+					</div>  */}
 				</div>
 				<time datetime={post.date} class='text-sm text-base-content/71'>
 					{new Date(post.date).toLocaleDateString('en-US', {

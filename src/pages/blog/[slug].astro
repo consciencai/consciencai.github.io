@@ -27,8 +27,8 @@ import ShareButtons from '@/components/ShareButtons.astro';
 const postUrl = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
-<Layout title={title}>
-	<div class='max-w-4xl mx-auto'>
+<Layout title={title} description={post.data.description} image={post.data.image}>
+	<div class='max-w-4xl mx-auto font-serif'>
 		<article
 			class='prose max-w-none prose-headings:text-base-content prose-p:text-base-content/80'
 		>
@@ -72,23 +72,24 @@ const postUrl = new URL(Astro.url.pathname, Astro.site).href;
 						)
 					}
 				</div>
-				<ShareButtons url={postUrl} title={title} />
+				<!-- <ShareButtons url={postUrl} title={title} />-->
 			</div>
 
 			<!-- Post content -->
 			<div
-				class='prose mt-8 prose-h2:text-2xl prose-h2:font-bold prose-h2:mb-4
-         prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-3
-         prose-p:mb-4 prose-p:leading-relaxed
-         prose-strong:text-base-content prose-strong:font-bold
-         prose-em:italic
-         prose-a:text-accent prose-a:no-underline hover:prose-a:underline
-         prose-code:text-accent prose-code:bg-base-200 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
-         prose-blockquote:border-l-4 prose-blockquote:border-accent prose-blockquote:pl-4 prose-blockquote:italic
-         prose-ul:list-disc prose-ul:pl-6
-         prose-ol:list-decimal prose-ol:pl-6
-         prose-li:mb-2
-         prose-img:rounded-lg prose-img:my-8'
+				class='prose mx-auto w-full max-w-none text-justify mt-8
+				 prose-h2:text-2xl prose-h2:font-bold prose-h2:mb-4
+				prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-3
+				prose-p:mb-4 prose-p:leading-relaxed
+				prose-strong:text-base-content prose-strong:font-bold
+				prose-em:italic
+				prose-a:text-accent prose-a:no-underline hover:prose-a:underline
+				prose-code:text-accent prose-code:bg-base-200 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+				prose-blockquote:border-l-4 prose-blockquote:border-accent prose-blockquote:pl-4 prose-blockquote:italic
+				prose-ul:list-disc prose-ul:pl-6
+				prose-ol:list-decimal prose-ol:pl-6
+				prose-li:mb-2
+				prose-img:rounded-lg prose-img:my-8 prose-img:max-w-lg prose-img:mx-auto'
         >
                 <Content />
 			</div>

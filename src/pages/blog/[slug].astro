@@ -17,7 +17,7 @@ export async function getStaticPaths(): Promise<Array<{ params: { slug: string }
     return posts
 }
 const {post} = Astro.props;
-const { title, date, tags} = post.data; 
+const { title, fulltitle, subtitle, subtext, date, tags }: { title: string; fulltitle?: string; subtitle?: string; subtext?: string; date: string; tags?: string[] } = post.data; 
 const { Content } = await render(post);
 
 // SHARING BUTTONS
@@ -34,7 +34,9 @@ const postUrl = new URL(Astro.url.pathname, Astro.site).href;
 		>
 			<!-- Header section -->
 			<div class='mb-8 border-b pb-8'>
-				<h1 class='text-4xl font-bold mb-4 text-base-content'>{title}</h1>
+				<h1 class='text-4xl font-bold text-base-content'>{fulltitle??title}</h1>
+				{subtitle && <h2>{subtitle}</h2>}
+				{subtext && <h3>{subtext}</h3>}
 				<div class='flex flex-wrap items-center gap-4 text-base-content/70'>
 					<!-- Date -->
 					<time datetime={date} class='flex items-center'>
@@ -65,7 +67,7 @@ const postUrl = new URL(Astro.url.pathname, Astro.site).href;
 					{
 						tags && (
 							<div class='flex flex-wrap gap-2'>
-								{tags.map(tag => (
+								{tags.map((tag: string) => (
 									<span class='badge badge-accent badge-outline'>{tag}</span>
 								))}
 							</div>

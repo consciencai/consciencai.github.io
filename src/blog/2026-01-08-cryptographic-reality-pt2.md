@@ -1,9 +1,16 @@
 ---
 
-title: "Cryptographic Reality - pt 2: Private vs Shared"
+title: "Cryptographic Reality - pt 2"
 date: "2026-01-08"
-tags: ["blog"]
 description: "Moving beyond the classical split between internal representations and external facts, this post introduces private and shared realities as interacting systems of reference."
+
+# Optional
+
+fulltitle: "Cryptographic Reality - part 2"
+subtitle: "Private vs Shared Systems of Reference"
+
+tags: ["Cryptographic reality", "Metaphysics", "Private", "Shared", "Computational theories of mind", "Mind/Body"]
+
 image: '/og/alice-bob-paper.webp'
 draft: false
 

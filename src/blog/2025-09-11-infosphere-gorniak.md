@@ -2,8 +2,10 @@
 
 title: "Infosphere, Hyperhistory and the Gorniak Hypothesis"
 date: "2025-11-19"
-tags: ["Global Ethics", "blog"]
 description: "In the information-universe, artificial agents propel us in a new era, with global ethics."
+
+tags: ["Infosphere", "Hyperhistory", "Global Ethics", "Philosophy of Information", "Technological Evolution"]
+
 image: '/og/cavewoman-digital-flame-s.png'
 draft: false
 
@@ -49,7 +51,7 @@ During this transition period, we are in many ways like _prehistoric humans_ acq
 
 Within the concept of infosphere, prehistoric fire is also an information technology: it conveyed signals, reshaped affordances, and enabled new practices by transforming gathering places, expression, norms, and tools. Fire was an essential computational/linguistic symbol (both logical and allegorical) in the history of metallurgy, persistent writing, and overall technological progress. (More detailed accounts of this fascinating trajectory can be found [here](https://en.wikipedia.org/wiki/Catching_Fire%3A_How_Cooking_Made_Us_Human), [here](https://search.worldcat.org/title/493115117))
 
-![Picture of a prehistoric woman holding a digital flame](../assets/infosphere-hyperhistory-gorniak/cavewoman-digital-flame-xs.png)
+![Picture of a prehistoric woman holding a digital flame](../assets/infosphere-hyperhistory-gorniak/cavewoman-digital-flame.webp)
 **| Figure 2** _A Prehistoric Woman Holding a Digital Flame (generated with ChatGPT)_
 
 Although technology is advancing fast, current widespread usages such as social media, instant messaging, or digital assistants will ultimately be seen as archaic, early and clumsy adoptions of artificial information processing systems in the greater Hyperhistoric era. Taming this new power will require a several iterations of trials and errors. It’s simply too early to imagine, even in fiction, the mature stage of this new era in humankind.

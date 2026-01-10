@@ -2,14 +2,18 @@
 
 title: "Cryptographic Reality - pt 1"
 date: "2025-05-08"
-tags: ["blog"]
 description: "An inquiry on representation and reality (Part 1): Zeno vs Diogenese, mirages and other paradoxes..."
+
+# Optional:
+
+fulltitle: "Cryptographic Reality - part 1"
+
+tags: ["Cryptographic reality", "Metaphysics", "Empiricism", "Idealism", "Rationalism", "Scepticism", "Zeno", "Diogenes", "Computational theories of mind", Strange Loop, Paradox]
+
 image: '/og/alice-bob-mirage.png'
 draft: false
 
 ---
-
-# Cryptographic Reality - part 1
 
 *There is a backstory to this post. The ideas explored below were first sparked by a conference on the philosophy of AI on the topic of "Representation and Reality", at a time when I was reading [Putnam's classic](https://direct.mit.edu/books/monograph/4290/Representation-and-Reality) in depth. The result is a strange mix of metaphysics, philosophy of science, computation and information theory. Happy to share these thoughts, hopefully they'll make sense to someone else.*
 

@@ -6,7 +6,7 @@ description: "In the information-universe, artificial agents propel us in a new 
 
 tags: ["Infosphere", "Hyperhistory", "Global Ethics", "Philosophy of Information", "Technological Evolution"]
 
-image: '/og/cavewoman-digital-flame-s.png'
+image: '/og/cavewoman-digital-flame.webp'
 draft: false
 
 ---

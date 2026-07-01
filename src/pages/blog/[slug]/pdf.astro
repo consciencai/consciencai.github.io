@@ -1,0 +1,347 @@
+---
+import { getCollection, render } from "astro:content";
+import {
+    formatDate,
+    postBibPath,
+    postAuthors,
+    postTitle,
+    withBase,
+} from "@/lib/citation";
+
+export async function getStaticPaths(): Promise<Array<{ params: { slug: string }, props: { post: any } }>> {
+    const blogEntries = await getCollection("blog");
+    return blogEntries.map((post) => ({
+        params: { slug: post.id },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const slug = post.id;
+const title = postTitle(post.data);
+const authors = postAuthors(post.data);
+const bibUrl = postBibPath(slug);
+const { date, description, tags } = post.data;
+const originalDate = post.data.citation?.originalDate;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{title} - PDF</title>
+        <style>
+            :root {
+                color: #171717;
+                background: #f5f2ea;
+                font-family: Georgia, "Times New Roman", serif;
+                line-height: 1.55;
+            }
+
+            body {
+                margin: 0;
+            }
+
+            .page {
+                box-sizing: border-box;
+                max-width: 820px;
+                margin: 32px auto;
+                padding: 56px 64px;
+                background: #fffdf8;
+                border: 1px solid #d8d0c2;
+                box-shadow: 0 16px 40px rgb(0 0 0 / 0.08);
+            }
+
+            .toolbar {
+                display: flex;
+                justify-content: space-between;
+                gap: 16px;
+                margin: 0 auto 18px;
+                max-width: 820px;
+                font-family: ui-sans-serif, system-ui, sans-serif;
+                font-size: 14px;
+            }
+
+            .toolbar a,
+            .toolbar button {
+                color: #573b16;
+                border: 1px solid #c5aa7b;
+                background: #fff8e6;
+                padding: 8px 12px;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+            h1 {
+                font-size: 34px;
+                line-height: 1.15;
+                margin: 0 0 14px;
+            }
+
+            .intro {
+                color: #3f3a33;
+                font-size: 18px;
+                line-height: 1.45;
+                margin: 0;
+            }
+
+            .header-grid {
+                display: grid;
+                gap: 18px;
+                grid-template-columns: minmax(0, 1fr) auto;
+                margin-bottom: 22px;
+            }
+
+            .keywords {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+                justify-content: flex-end;
+                max-width: 260px;
+            }
+
+            .keyword {
+                border: 1px solid #c5aa7b;
+                border-radius: 999px;
+                color: #573b16;
+                font-family: ui-sans-serif, system-ui, sans-serif;
+                font-size: 11px;
+                padding: 3px 8px;
+            }
+
+            article :global(h2),
+            article :global(h3),
+            article :global(h4) {
+                color: #171717;
+                font-weight: 700;
+                line-height: 1.25;
+                break-after: avoid;
+                page-break-after: avoid;
+            }
+
+            article :global(h2) {
+                border-top: 1px solid #d8d0c2;
+                font-size: 24px;
+                margin: 34px 0 14px;
+                padding-top: 18px;
+            }
+
+            article :global(h3) {
+                font-size: 19px;
+                margin: 26px 0 10px;
+            }
+
+            article :global(h4) {
+                font-size: 16px;
+                margin: 20px 0 8px;
+            }
+
+            article :global(p) {
+                margin: 0 0 14px;
+                orphans: 3;
+                widows: 3;
+            }
+
+            .meta {
+                color: #4c463d;
+                font-size: 14px;
+            }
+
+            .edited-date {
+                color: #6a6258;
+                font-size: 12px;
+            }
+
+            article :global(img) {
+                display: block;
+                max-width: 80%;
+                margin: 28px auto;
+            }
+
+            article :global(a) {
+                color: #573b16;
+            }
+
+            article :global(ul),
+            article :global(ol) {
+                margin: 0 0 16px 24px;
+                padding: 0;
+            }
+
+            article :global(li) {
+                margin-bottom: 6px;
+            }
+
+            article :global(blockquote) {
+                border-left: 3px solid #c5aa7b;
+                margin-left: 0;
+                padding-left: 18px;
+                color: #4c463d;
+            }
+
+            article :global(code) {
+                background: #f4efe3;
+                border: 1px solid #e3d8c3;
+                border-radius: 3px;
+                font-family: "SFMono-Regular", Consolas, monospace;
+                font-size: 0.88em;
+                padding: 0 3px;
+            }
+
+            article :global(pre) {
+                background: #f4efe3;
+                border: 1px solid #e3d8c3;
+                overflow-x: auto;
+                padding: 14px;
+            }
+
+            article :global(pre code) {
+                background: transparent;
+                border: 0;
+                padding: 0;
+            }
+
+            article :global(table) {
+                border-collapse: collapse;
+                font-size: 14px;
+                margin: 24px 0;
+                width: 100%;
+            }
+
+            article :global(th),
+            article :global(td) {
+                border: 1px solid #d8d0c2;
+                padding: 7px 9px;
+                text-align: left;
+                vertical-align: top;
+            }
+
+            article :global(sup) {
+                font-size: 0.72em;
+                line-height: 0;
+            }
+
+            article :global(sup a) {
+                text-decoration: none;
+            }
+
+            article :global(.footnotes) {
+                border-top: 1px solid #d8d0c2;
+                color: #3f3a33;
+                font-size: 13px;
+                margin-top: 42px;
+                padding-top: 18px;
+            }
+
+            article :global(.footnotes h2) {
+                border: 0;
+                font-size: 18px;
+                margin: 0 0 12px;
+                padding: 0;
+            }
+
+            article :global(.footnotes ol) {
+                margin-left: 20px;
+            }
+
+            article :global(.footnotes li) {
+                margin-bottom: 10px;
+                padding-left: 4px;
+            }
+
+            article :global(.footnotes p) {
+                margin-bottom: 8px;
+            }
+
+            article :global(.data-footnote-backref) {
+                font-family: ui-sans-serif, system-ui, sans-serif;
+                text-decoration: none;
+            }
+
+            article :global(.sr-only) {
+                position: static;
+                width: auto;
+                height: auto;
+                padding: 0;
+                margin: 0;
+                overflow: visible;
+                clip: auto;
+                white-space: normal;
+            }
+
+            @page {
+                margin: 22mm 19mm;
+            }
+
+            @media print {
+                :root,
+                body {
+                    background: white;
+                }
+
+                .toolbar {
+                    display: none;
+                }
+
+                .page {
+                    max-width: none;
+                    margin: 0;
+                    padding: 0;
+                    border: 0;
+                    box-shadow: none;
+                    background: white;
+                }
+            }
+
+            @media (max-width: 760px) {
+                .header-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .keywords {
+                    justify-content: flex-start;
+                    max-width: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="toolbar">
+            <a href={withBase(`/blog/${slug}`)}>Back to entry</a>
+            <a href={bibUrl}>Download as Bib</a>
+            <button type="button" onclick="window.print()">Download as PDF</button>
+        </div>
+
+        <main class="page">
+            <header>
+                <h1>{title}</h1>
+                <div class="header-grid">
+                    <div>
+                        {description && <p class="intro">{description}</p>}
+                        <p class="meta">
+                            {authors.join(", ")}<br />
+                            {originalDate && (
+                                <>
+                                    Original draft: {formatDate(originalDate)}
+                                    <br />
+                                </>
+                            )}
+                            <span class="edited-date">Edited and published: {formatDate(date)} · ConsciencAI</span>
+                        </p>
+                    </div>
+                    {tags && (
+                        <div class="keywords">
+                            {tags.map((tag: string) => <span class="keyword">{tag}</span>)}
+                        </div>
+                    )}
+                </div>
+            </header>
+
+            <article>
+                <Content />
+            </article>
+        </main>
+    </body>
+</html>

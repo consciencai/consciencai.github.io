@@ -1,0 +1,270 @@
+---
+import Layout from '../layouts/Layout.astro'
+
+import { profile } from '@/settings'
+
+
+import ProfilePictures from '@/assets/profile_pictures.jpg'
+import ProfilePic2 from '@/assets/profile_pic2.jpg'
+import PixelProfilePic from '@/assets/pixel-portrait.png'
+
+import Hero from '@/components/ui/Hero.astro'
+
+
+const { fullName, blogName, title, institute, research_areas } = profile
+
+const resources = [
+	{
+		date: '2026-06-30',
+		title: 'Turing, Searle, Lovelace: Three Levels of Mental Attribution in AI',
+		authors: 'Aïda Elamrani',
+		venue: 'BAMΞ C-Tests Workshop, University of Bamberg, 2026',
+		description:
+			'A talk on mental attribution in AI, moving across behaviour, architecture, and explainability as three levels for reconsidering machine minds.',
+		links: [
+			{ label: 'Abstract', href: 'https://www.uni-bamberg.de/en/bamxi/research-activities/ai-consciousness-sprint/c-tests-workshop/#c720227' },
+			{ label: 'Slides PDF', href: '/refs/turing-searle-lovelace-c-tests-2026.pdf' },
+		],
+		
+	},
+	{
+		date: '2025-09-02',
+		title: 'Three Levels of Distinction Between Biological and Artificial Consciousness',
+		authors: 'Aïda Elamrani',
+		venue: 'KogWis 2025, Artificial Consciousness, Ruhr-University Bochum, 2025',
+		description:
+			'A talk from the Artificial Consciousness session at KogWis 2025, held with Henry Shevlin and Wanja Wiese on scientific and public approaches to AI consciousness.',
+		links: [
+			{ label: 'Program', href: 'https://kogwis2025.philosophy-cognition.com/program/' },
+			{ label: 'Official abstracts', href: 'https://kogwis2025.philosophy-cognition.com/wp-content/uploads/2025/08/parallel-Paper-sessions-2025v2.pdf' },
+			{ label: 'Joint session proposal', href: '/refs/kogwis-2025-artificial-consciousness-session.pdf' },
+		],
+		
+	},
+	{
+		date: '2024-10-01',
+		title: 'Understanding Artificial Consciousness: Clarifying Concepts and Advancing Research',
+		authors: 'Aïda Elamrani',
+		venue: 'Models of Consciousness 5, University of Bamberg, 2024',
+		description:
+			'A MoC5 talk clarifying artificial consciousness terminology and current research, with attention to Attention Schema Theory and Transformer architectures.',
+		links: [
+			{ label: 'Video', href: 'https://www.youtube.com/watch?v=rdiUsKASdlg' },
+			{ label: 'Conference website', href: 'https://amcs-community.org/events/moc5-2024/' },
+			{ label: 'Submitted abstract PDF', href: '/refs/moc5-2024-understanding-artificial-consciousness-abstract.pdf' },
+		],
+		
+	},
+	{
+		date: '2019-09-09',
+		title: 'Inputs, Outputs, and Meta-Models',
+		authors: 'Aïda Elamrani',
+		venue: 'Models of Consciousness, University of Oxford, 2019',
+		description:
+			'A talk proposing a theory-neutral way to compare scientific theories of consciousness by treating them as functions with inputs, outputs, and mapping rules.',
+		links: [
+			{ label: 'Talk page', href: 'https://podcasts.ox.ac.uk/aida-elamrani-inputs-outputs-and-meta-models' },
+			{ label: 'Video', href: 'https://podcasts.ox.ac.uk/aida-elamrani-inputs-outputs-and-meta-models' },
+			{ label: 'Summary PDF', href: '/refs/oxford-2019-inputs-outputs-metamodels-summary.pdf' },
+		],
+		
+	},
+	{
+		date: '2025-03-11',
+		title: 'Introduction to Artificial Consciousness: History, Current Trends and Ethical Challenges',
+		authors: 'Aïda Elamrani',
+		venue: 'arXiv, 2025',
+		description:
+			'A broad introduction to artificial consciousness, covering historical context, current research trends, and ethical challenges.',
+		links: [
+			{ label: 'arXiv', href: 'https://arxiv.org/abs/2503.05823' },
+			{ label: 'PDF', href: 'https://arxiv.org/pdf/2503.05823' },
+		],
+		
+	},
+	{
+		date: '2019-05-01',
+		title: 'Reviewing Tests for Machine Consciousness',
+		authors: 'Aïda Elamrani and Roman V. Yampolskiy',
+		venue: 'Journal of Consciousness Studies 26 (5-6):35-64, 2019',
+		description:
+			'An analytic review of proposed tests for machine consciousness, comparing architecture-based and behavior-based approaches.',
+		links: [
+			{ label: 'Journal of Consciousness Studies', href: 'https://www.ingentaconnect.com/content/imp/jcs/2019/00000026/f0020005/art00003' },
+			{ label: 'PhilPapers', href: 'https://philpapers.org/rec/ELARTF' },
+		],
+		
+	},
+	{
+		date: '2022-06-21',
+		title: 'Did Google develop a conscious AI?',
+		authors: 'Aïda Elamrani',
+		venue: 'The Conversation, 2022',
+		description:
+			'An article on Blake Lemoine, LaMDA, and why persuasive language is not enough to establish machine consciousness.',
+		links: [
+			{ label: 'The Conversation', href: 'https://theconversation.com/google-a-t-il-developpe-une-ia-consciente-186254' },
+			{ label: 'La Tribune', href: 'https://www.latribune.fr/opinions/tribunes/blake-lemoine-l-homme-qui-s-est-fait-berner-par-l-intelligence-artificielle-de-google-927289.html' },
+			{ label: 'English translation', href: '/resources/did-google-develop-conscious-ai' },
+			{ label: 'PDF', href: '/refs/did-google-develop-conscious-ai-en.pdf' },
+		],
+		
+	},
+	{
+		date: '2014-01-01',
+		title: 'Of Mills and Machines: Computing Thought Experiments on Consciousness',
+		authors: 'Aïda Raoult',
+		venue: 'Manuscript',
+		description:
+			'A paper on machine consciousness through Leibniz’s Mill and later thought experiments on qualia, intentionality, and artificial minds.',
+		links: [
+			{ label: 'PDF', href: '/refs/of-mills-and-machines.pdf' },
+		],
+		
+	},
+]
+
+const sortedResources = [...resources].sort((a, b) => b.date.localeCompare(a.date))
+
+
+
+---
+
+<Layout>
+	
+	<section class='flex items-center gap-12 border-b pb-12'>
+		<Hero
+			fullName={fullName}
+			blogName={blogName}
+			title={title}
+			institute={institute}
+			profilePicture={ProfilePictures}
+			profilePicture2={ProfilePic2}
+			pixelProfilePic={PixelProfilePic}
+		/>
+	</section>
+
+	<section class='resources-section'>
+		<div class='resources-header'>
+			<p class='resources-eyebrow'>Digital Dust</p>
+			<h2>Resources</h2>
+			<p>
+				Papers, talks, videos, slides, and other digital traces.
+			</p>
+		</div>
+
+		<div class='resources-list'>
+			{sortedResources.map((resource) => (
+				<article class='resource-item'>
+					<div class='resource-main'>
+						<h3>{resource.title}</h3>
+						<p class='resource-meta'>{resource.authors} · {resource.venue}</p>
+						<p class='resource-description'>{resource.description}</p>
+						<div class='resource-links'>
+							{resource.links.map((link) => (
+								<a href={link.href} target='_blank' rel='noreferrer'>
+									{link.label}
+								</a>
+							))}
+						</div>
+					</div>
+				</article>
+			))}
+		</div>
+	</section>
+
+	
+</Layout>
+
+<style>
+	.resources-section {
+		padding: 3rem 0 1rem;
+	}
+
+	.resources-header {
+		max-width: 42rem;
+	}
+
+	.resources-eyebrow {
+		color: color-mix(in oklab, currentColor 58%, transparent);
+		font-family: "Courier Prime", monospace;
+		font-size: 0.78rem;
+		font-weight: 700;
+		margin: 0 0 0.65rem;
+		text-transform: uppercase;
+	}
+
+	.resources-header h2 {
+		font-family: "Merriweather", serif;
+		font-size: clamp(1.45rem, 2.4vw, 2rem);
+		font-weight: 700;
+		letter-spacing: 0;
+		line-height: 1.18;
+		margin: 0;
+	}
+
+	.resources-header p {
+		color: color-mix(in oklab, currentColor 72%, transparent);
+		line-height: 1.75;
+		margin-top: 1rem;
+	}
+
+	.resources-list {
+		display: grid;
+		gap: 0.9rem;
+		margin-top: 1.55rem;
+	}
+
+	.resource-item {
+		border-top: 1px solid color-mix(in oklab, currentColor 14%, transparent);
+		display: grid;
+		gap: 0.65rem;
+		padding-top: 0.95rem;
+	}
+
+	.resource-main h3 {
+		font-family: "Merriweather", serif;
+		font-size: 1.02rem;
+		font-weight: 800;
+		letter-spacing: 0;
+		line-height: 1.3;
+		margin: 0;
+	}
+
+	.resource-meta {
+		color: color-mix(in oklab, currentColor 56%, transparent);
+		font-size: 0.78rem;
+		margin: 0.32rem 0 0;
+	}
+
+	.resource-description {
+		color: color-mix(in oklab, currentColor 78%, transparent);
+		font-size: 0.9rem;
+		line-height: 1.55;
+		margin: 0.55rem 0 0;
+	}
+
+	.resource-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+		margin-top: 0.75rem;
+	}
+
+	.resource-links a {
+		border: 1px solid color-mix(in oklab, currentColor 18%, transparent);
+		border-radius: 0.4rem;
+		color: color-mix(in oklab, currentColor 72%, transparent);
+		font-size: 0.74rem;
+		font-weight: 800;
+		line-height: 1;
+		padding: 0.5rem 0.62rem;
+		text-decoration: none;
+	}
+
+	.resource-links a:hover {
+		border-color: color-mix(in oklab, currentColor 40%, transparent);
+		color: currentColor;
+	}
+
+</style>

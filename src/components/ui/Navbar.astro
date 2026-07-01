@@ -1,0 +1,43 @@
+---
+import { Image } from 'astro:assets'
+import {profile} from '../../settings'
+import SocialIcons from './SocialIcons.astro'
+import ProfilePictures from '@/assets/profile_pictures.jpg'
+import { getCollection } from 'astro:content'
+import { template } from '@/settings'
+
+const isBlogPopulated = await getCollection('blog').then(collection => collection.length > 0)
+
+const {fullName, blogName} = profile
+---
+<aside
+	class='px-4 pt-4 h-screen w-[20rem] bg-base-200 text-base-content flex flex-col'
+>
+	<div class='flex flex-col my-8 justify-between h-full'>
+		<div>
+			<div class='flex justify-center items-center flex-col'>
+				
+				<h1 class='text-lg font-black mt-8 hidden'>{blogName}</h1>
+
+			</div>
+			<div class='mx-4 mt-4'>
+				<ul class='space-y-4 menu grow shrink menu-md overflow-y-auto'>
+					<li>
+                        <a href=`${template.base}/` class='text-lg'>Home</a>
+					</li>
+					{isBlogPopulated &&
+						<li>
+							<a href=`${template.base}/blog/1` class='text-lg'>Blog</a>
+						</li>
+					}
+					<li>
+                        <a href=`${template.base}/about` class='text-lg'>About</a>
+					</li>
+					
+                    
+				</ul>
+			</div>
+		</div>
+		
+	</div>
+</aside>

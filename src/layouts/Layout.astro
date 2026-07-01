@@ -1,0 +1,118 @@
+---
+import { ClientRouter } from 'astro:transitions';
+
+import BetterIcon from '../components/ui/BetterIcon.astro'
+import DarkLightController from '../components/ui/DarkLightController.astro'
+import Navbar from '../components/ui/Navbar.astro'
+import Head from '../components/Head.astro'
+
+import '../styles/global.css'
+
+import { seo, profile, template } from '../settings'
+import Footer from '../components/ui/Footer.astro'
+
+type Props = {
+	title?: string
+	description?: string
+	image?: string
+}
+
+const {
+	title = seo.default_title,
+	description = seo.default_description,
+	image = seo.default_image,
+} = Astro.props
+---
+
+<!doctype html>
+<html lang='en'>
+	<head>
+		{template.transitions && <ClientRouter /> }
+
+		<Head title={title} description={description} image={image} />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap" rel="stylesheet">
+
+		<script data-goatcounter="https://consciencai.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+	</head>
+	<body class="font-sans">
+		<div class={`bg-base-100 drawer ${template.menu_left ? 'drawer-end' : ''}`}>
+			<input id='my-drawer' type='checkbox' class='drawer-toggle' />
+			
+            <div class='drawer-content bg-base-100'>
+				<div class='bg-base-100 z-50 text-base-content shadow-sm'>
+					<nav class='navbar'>
+						<div class='navbar-start'>
+							{template.menu_left &&
+								<DarkLightController/>
+							}
+							<label
+								for='my-drawer'
+								class='btn btn-square btn-ghost'
+								aria-label='Open menu'
+								aria-controls='my-drawer'
+								role='button'
+							>
+								<BetterIcon>
+									<svg
+										xmlns='http://www.w3.org/2000/svg'
+										fill='none'
+										viewBox='0 0 24 24'
+										stroke-width='1.5'
+										class='size-6 stroke-current'
+									>
+										<path
+											stroke-linecap='round'
+											stroke-linejoin='round'
+											d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'></path>
+									</svg>
+								</BetterIcon>
+							</label>
+						</div>
+						<div class='navbar-center text-lg'>
+							<a href="/" class='navbar-center text-xl tracking-tight font-black hover:opacity-80 transition-opacity'>
+							{profile.blogName}
+							</a>
+						</div>
+						<div class='navbar-end'>
+							{!template.menu_left &&
+								<DarkLightController/>
+							}
+						</div>
+					</nav>
+				</div>
+                <main class="min-h-screen flex flex-col justify-between">
+				<div class="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8 pt-10 lg:pt-16">
+					<slot />
+					<Footer />
+				</div>
+				</main>
+			</div>
+			
+			<div class='drawer-side z-40'>
+				<label for='my-drawer' aria-label='close sidebar' class='drawer-overlay'
+				></label>
+				<Navbar />
+			</div>
+		</div>
+	</body>
+</html>
+
+<style>
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--my-color: #252b30;
+		}
+	}
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+</style>

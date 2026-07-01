@@ -1,0 +1,185 @@
+---
+import { subscription } from "@/settings";
+
+type Props = {
+	compact?: boolean;
+};
+
+const { compact = false } = Astro.props;
+const buttondownUsername = subscription.buttondownUsername.trim();
+const hasEmailSubscription = buttondownUsername.length > 0;
+const buttondownAction = hasEmailSubscription
+	? `https://buttondown.com/api/emails/embed-subscribe/${buttondownUsername}`
+	: "";
+---
+
+<section
+	class={`subscribe-box ${compact ? "subscribe-box-compact" : ""}`}
+	aria-labelledby="subscribe-heading"
+>
+	<div>
+		<p class="subscribe-label">Subscribe</p>
+		<h2 id="subscribe-heading">Get new posts by email</h2>
+		<p class="subscribe-copy">
+			Get a short email when a new ConsciencAI post is published.
+		</p>
+	</div>
+
+	{
+		hasEmailSubscription ? (
+			<form action={buttondownAction} method="post" class="subscribe-form">
+				<label for="subscribe-email">Email address</label>
+				<div class="subscribe-controls">
+					<input
+						id="subscribe-email"
+						type="email"
+						name="email"
+						placeholder="you@example.com"
+						required
+					/>
+					<input type="hidden" value="1" name="embed" />
+					<button class="subscribe-submit" type="submit">Subscribe</button>
+				</div>
+				<p class="subscribe-note">You can unsubscribe at any time.</p>
+			</form>
+		) : (
+			<p class="subscribe-note">
+				Email subscriptions are being set up. For now, you can follow the RSS
+				feed.
+			</p>
+		)
+	}
+
+	<a class="rss-link" href={subscription.rssPath}>RSS feed</a>
+</section>
+
+<style>
+	.subscribe-box {
+		border-top: 1px solid color-mix(in oklab, currentColor 14%, transparent);
+		border-bottom: 1px solid color-mix(in oklab, currentColor 14%, transparent);
+		display: grid;
+		gap: 1.2rem;
+		margin: 2.5rem 0;
+		padding: 1.4rem 0;
+	}
+
+	.subscribe-box-compact {
+		margin: 1.5rem 0 2rem;
+	}
+
+	.subscribe-label {
+		color: color-mix(in oklab, currentColor 58%, transparent);
+		font-family: "Courier Prime", monospace;
+		font-size: 0.78rem;
+		font-weight: 700;
+		margin: 0 0 0.45rem;
+		text-transform: uppercase;
+	}
+
+	h2 {
+		font-family: "Merriweather", serif;
+		font-size: clamp(1.35rem, 3vw, 1.9rem);
+		font-weight: 800;
+		letter-spacing: 0;
+		line-height: 1.15;
+		margin: 0;
+	}
+
+	.subscribe-copy,
+	.subscribe-note {
+		color: color-mix(in oklab, currentColor 68%, transparent);
+		line-height: 1.6;
+		margin: 0;
+	}
+
+	.subscribe-copy {
+		margin-top: 0.55rem;
+	}
+
+	.subscribe-form {
+		display: grid;
+		gap: 0.55rem;
+	}
+
+	label {
+		color: color-mix(in oklab, currentColor 62%, transparent);
+		font-size: 0.82rem;
+		font-weight: 700;
+	}
+
+	.subscribe-controls {
+		display: grid;
+		gap: 0.65rem;
+	}
+
+	input[type="email"] {
+		background: color-mix(in oklab, currentColor 4%, transparent);
+		border: 1px solid color-mix(in oklab, currentColor 18%, transparent);
+		border-radius: 0.4rem;
+		color: currentColor;
+		min-width: 0;
+		padding: 0.78rem 0.85rem;
+		width: 100%;
+	}
+
+	input[type="email"]:focus {
+		border-color: color-mix(in oklab, currentColor 42%, transparent);
+		outline: 2px solid color-mix(in oklab, currentColor 14%, transparent);
+		outline-offset: 2px;
+	}
+
+	.subscribe-submit,
+	.rss-link {
+		align-items: center;
+		border-radius: 0.4rem;
+		display: inline-flex;
+		font-weight: 800;
+		justify-content: center;
+		line-height: 1;
+		text-decoration: none;
+	}
+
+	.subscribe-submit {
+		background: #372f1f;
+		border: 1px solid #372f1f;
+		color: #f5d768;
+		cursor: pointer;
+		min-height: 2.9rem;
+		padding: 0.82rem 1rem;
+		white-space: nowrap;
+	}
+
+	.subscribe-submit:hover,
+	.subscribe-submit:focus-visible {
+		background: #4a3a19;
+		border-color: #4a3a19;
+		color: #fff1a8;
+	}
+
+	.rss-link {
+		border: 1px solid color-mix(in oklab, currentColor 18%, transparent);
+		color: color-mix(in oklab, currentColor 72%, transparent);
+		justify-self: start;
+		padding: 0.68rem 0.85rem;
+	}
+
+	.rss-link:hover {
+		border-color: color-mix(in oklab, currentColor 40%, transparent);
+		color: currentColor;
+	}
+
+	@media (min-width: 720px) {
+		.subscribe-box {
+			grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.8fr);
+			align-items: start;
+		}
+
+		.rss-link {
+			grid-column: 2;
+		}
+
+		.subscribe-controls {
+			grid-template-columns: minmax(0, 1fr) max-content;
+		}
+	}
+</style>

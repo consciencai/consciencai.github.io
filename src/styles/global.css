@@ -1,0 +1,282 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "daisyui" {
+    themes: false;
+}
+@plugin "daisyui/theme" {
+    name: "bumblebee";
+    default: true;
+    color-scheme: light;
+    --color-primary: oklch(89.51% 0.2132 96.61);
+    --color-primary-content: oklch(38.92% 0.046 96.61);
+    --color-secondary: oklch(80.39% 0.194 70.76);
+    --color-secondary-content: oklch(39.38% 0.068 70.76);
+    --color-accent: oklch(81.27% 0.157 56.52);
+    --color-accent-content: oklch(16.254% 0.0314 56.52);
+    --color-neutral: oklch(12.75% 0.075 281.99);
+    --color-neutral-content: oklch(82.55% 0.015 281.99);
+    --color-base-100: oklch(100% 0 0);
+    --color-base-200: oklch(93% 0 0);
+    --color-base-300: oklch(86% 0 0);
+    --color-base-content: oklch(20% 0 0);
+    --color-info: oklch(72.06% 0.191 231.6);
+    --color-info-content: oklch(0% 0 0);
+    --color-success: oklch(64.8% 0.15 160);
+    --color-success-content: oklch(0% 0 0);
+    --color-warning: oklch(84.71% 0.199 83.87);
+    --color-warning-content: oklch(0% 0 0);
+    --color-error: oklch(71.76% 0.221 22.18);
+    --color-error-content: oklch(0% 0 0);
+    --radius-selector: 1.9rem;
+    --radius-field: 0.5rem;
+    --radius-box: 1rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
+}
+@plugin "daisyui/theme" {
+    name: "darkbumblebee";
+    default: false;
+    prefersdark: true;
+    color-scheme: dark;
+    --color-primary: #b79002ff;
+    --color-primary-content: #733e0a;
+    --color-secondary: #ff8904;
+    --color-secondary-content: #7c2808;
+    --color-accent: #f1d8adff;
+    --color-accent-content: #111111;
+    --color-neutral: #372f1fff;
+    --color-neutral-content: #f5d768ff;
+    --color-base-100: #0b0f14;
+    --color-base-200: #0f1620;
+    --color-base-300: #16202c;
+    --color-base-content: #f1ebc0ff;
+    --color-info: #60a5fa;
+    --color-success: #34d399;
+    --color-warning: #fbbf24;
+    --color-error: #f87171;
+}
+
+@theme {
+    --font-sans: "Montserrat", sans-serif;
+    --font-serif: "Merriweather", serif;
+    --font-mono: "Courier Prime", monospace;
+}
+
+:root,
+[data-theme="bumblebee"] {
+    --legacy-post-secondary: var(--color-secondary);
+    --legacy-post-secondary-content: var(--color-secondary-content);
+    --legacy-post-accent: var(--color-accent);
+    --legacy-post-accent-content: var(--color-accent-content);
+    --legacy-post-divider: #e5e7eb;
+}
+
+[data-theme="darkbumblebee"] {
+    --legacy-post-secondary: var(--color-secondary);
+    --legacy-post-secondary-content: var(--color-secondary-content);
+    --legacy-post-accent: var(--color-accent);
+    --legacy-post-accent-content: var(--color-accent-content);
+    --legacy-post-divider: color-mix(in oklab, var(--color-base-content) 20%, transparent);
+}
+
+.legacy-theme-toggle-input {
+    flex-shrink: 0;
+    --tglbg: var(--color-base-100);
+    --handleoffset: 1.5rem;
+    --handleoffsetcalculator: calc(var(--handleoffset) * -1);
+    --togglehandleborder: 0 0;
+    width: 3rem;
+    height: 1.5rem;
+    cursor: pointer;
+    appearance: none;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0;
+    position: static;
+    border-radius: 1.9rem;
+    border-width: 1px;
+    border-color: currentColor;
+    background-color: currentColor;
+    color: color-mix(in oklab, var(--color-base-content) 50%, transparent);
+    transition: background, box-shadow 0.2s ease-out;
+    box-shadow:
+        var(--handleoffsetcalculator) 0 0 2px var(--tglbg) inset,
+        0 0 0 2px var(--tglbg) inset,
+        var(--togglehandleborder);
+}
+
+.legacy-theme-toggle-input::before {
+    content: none;
+    display: none;
+}
+
+[dir="rtl"] .legacy-theme-toggle-input {
+    --handleoffsetcalculator: calc(var(--handleoffset) * 1);
+}
+
+.legacy-theme-toggle-input:hover {
+    background-color: currentColor;
+}
+
+.legacy-theme-toggle-input:focus-visible {
+    outline: 2px solid color-mix(in oklab, var(--color-base-content) 20%, transparent);
+    outline-offset: 2px;
+}
+
+.legacy-theme-toggle-input:checked,
+.legacy-theme-toggle-input[aria-checked="true"] {
+    --handleoffsetcalculator: var(--handleoffset);
+    color: var(--color-base-content);
+    background-color: currentColor;
+    background-image: none;
+}
+
+[dir="rtl"] .legacy-theme-toggle-input:checked,
+[dir="rtl"] .legacy-theme-toggle-input[aria-checked="true"] {
+    --handleoffsetcalculator: calc(var(--handleoffset) * -1);
+}
+
+.legacy-theme-toggle-input:disabled {
+    cursor: not-allowed;
+    border-color: var(--color-base-content);
+    background-color: transparent;
+    opacity: 0.3;
+    --togglehandleborder:
+        0 0 0 3px var(--color-base-content) inset,
+        var(--handleoffsetcalculator) 0 0 3px var(--color-base-content) inset;
+}
+
+.legacy-theme-toggle-icon {
+    z-index: 1;
+}
+
+.post-header {
+    border-bottom-color: var(--legacy-post-divider);
+}
+
+.post-content.prose :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    color: var(--legacy-post-accent);
+}
+
+:where(.border, .border-t, .border-r, .border-b, .border-l) {
+    border-color: #e5e7eb;
+}
+
+:where(
+    [data-theme="darkbumblebee"] .border,
+    [data-theme="darkbumblebee"] .border-t,
+    [data-theme="darkbumblebee"] .border-r,
+    [data-theme="darkbumblebee"] .border-b,
+    [data-theme="darkbumblebee"] .border-l
+) {
+    border-color: var(--legacy-post-divider);
+}
+
+.btn {
+    min-height: 3rem;
+    height: 3rem;
+    padding-inline: 1rem;
+    border-radius: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1em;
+    text-decoration-line: none;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.btn-sm {
+    min-height: 2rem;
+    height: 2rem;
+    padding-inline: 0.75rem;
+    font-size: 0.875rem;
+}
+
+.btn-lg {
+    min-height: 4rem;
+    height: 4rem;
+    padding-inline: 1.5rem;
+    font-size: 1.125rem;
+}
+
+.btn-square {
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+}
+
+.btn-square.btn-sm {
+    width: 2rem;
+    height: 2rem;
+}
+
+.btn-square.btn-lg {
+    width: 4rem;
+    height: 4rem;
+}
+
+.badge {
+    height: 1.25rem;
+    padding-inline: 0.563rem;
+    border-radius: 1.9rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+.badge-outline {
+    background-color: transparent;
+    color: currentColor;
+    border-color: currentColor;
+}
+
+.card-body {
+    padding: 2rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.post-actions .post-action-button {
+    min-height: 3rem;
+    border-radius: 0.5rem;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1em;
+    text-decoration-line: none;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+.post-actions .post-action-button.btn-sm {
+    min-height: 2rem;
+    height: 2rem;
+    padding-inline: 0.75rem;
+    font-size: 0.875rem;
+}
+
+.post-actions .post-action-button.btn-secondary {
+    --btn-color: var(--legacy-post-secondary);
+    --btn-fg: var(--legacy-post-secondary-content);
+    color: var(--legacy-post-secondary-content);
+}
+
+.post-actions .post-action-button.btn-outline.btn-accent {
+    --btn-color: var(--legacy-post-accent);
+    color: var(--legacy-post-accent);
+    border-color: currentColor;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.post-keyword-badge.badge {
+    height: 1.25rem;
+    padding-inline: 0.563rem;
+    border-radius: 1.9rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    background-color: transparent;
+    color: var(--legacy-post-accent);
+    border-color: currentColor;
+    background-image: none;
+}

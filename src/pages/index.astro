@@ -1,0 +1,81 @@
+---
+import Layout from '../layouts/Layout.astro'
+
+import { profile } from '@/settings'
+import { getCollection } from 'astro:content'
+
+import ProfilePictures from '@/assets/profile_pictures.jpg'
+import ProfilePic2 from '@/assets/profile_pic2.jpg'
+import PixelProfilePic from '@/assets/pixel-portrait.png'
+import HeroBlog from '@/components/ui/HeroBlog.astro'
+import SubscribeBox from '@/components/SubscribeBox.astro'
+
+import HeroLatestPost from '@/components/ui/HeroLatestPost.astro'
+import { template } from '@/settings'
+
+const { fullName, blogName, title, institute } = profile
+
+const blogEntries = await getCollection("blog");
+
+const posts = blogEntries
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const latest = posts[0];
+
+const latestPost = latest
+  ? {
+      title: latest.data.title,
+      date: latest.data.date,
+      description: latest.data.description,
+      href: `${template.base}/blog/${latest.id}`,
+      image: (latest.data.image ?? PixelProfilePic) as any,
+    }
+  : null;
+
+
+---
+
+<Layout>
+	
+	<section class='flex items-center gap-12 no-border pb-12'>
+		<HeroBlog
+			fullName={fullName}
+			blogName={blogName}
+			title={title}
+			institute={institute}
+			profilePicture={ProfilePictures}
+			profilePicture2={ProfilePic2}
+			pixelProfilePic={PixelProfilePic}
+		/>
+	</section>
+
+	
+
+	
+
+	
+	{latestPost && (
+  <section class="no-border pb-8">
+    <HeroLatestPost
+      title={latestPost.title}
+      date={latestPost.date}
+      description={latestPost.description}
+      href={latestPost.href}
+      image={latestPost.image}
+    />
+  </section>
+)}
+
+<section class="no-border pb-12 margin-top-12 align-center">
+	
+  <p class="text-center">
+    <a href={`${template.base}/blog/1`} class="btn btn-primary btn-lg">
+      Browse all posts
+    </a>
+  </p>
+</section>
+
+<SubscribeBox />
+
+</Layout>

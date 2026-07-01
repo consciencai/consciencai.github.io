@@ -1,0 +1,19 @@
+---
+interface Props {
+    pdfUrl: string;
+    bibUrl: string;
+}
+
+const { pdfUrl, bibUrl } = Astro.props;
+---
+
+<section class="post-actions not-prose mt-12 border-t border-base-content/20 pt-8">
+    <div class="flex flex-wrap gap-3">
+        <a class="post-action-button btn btn-secondary text-secondary-content" href={pdfUrl}>
+            Download as PDF
+        </a>
+        <a class="post-action-button btn btn-outline btn-accent" href={bibUrl}>
+            Download as Bib
+        </a>
+    </div>
+</section>
